@@ -6,8 +6,9 @@ import { Toaster } from 'react-hot-toast';
 
 import { StudentOnboarding } from './pages/StudentOnboarding';
 
+import { TeacherDashboard } from './pages/TeacherDashboard';
+
 // Placeholders for routes
-const TeacherDashboard = () => <div>Teacher Dashboard</div>;
 const StudentDashboard = () => <div>Student Poll View</div>;
 
 function App() {
