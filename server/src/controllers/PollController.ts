@@ -18,6 +18,9 @@ class PollController {
         startTime: new Date()
       });
       
+      const io = req.app.get('io');
+      io.emit('poll:created', poll);
+
       res.status(201).json(poll);
     } catch (error) {
       res.status(500).json({ message: 'Error creating poll', error });

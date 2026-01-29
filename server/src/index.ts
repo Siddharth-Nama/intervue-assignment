@@ -25,6 +25,8 @@ const io = new Server(httpServer, {
   }
 });
 
+app.set('io', io); // Make io accessible in controllers
+
 app.use(cors());
 app.use(express.json());
 
