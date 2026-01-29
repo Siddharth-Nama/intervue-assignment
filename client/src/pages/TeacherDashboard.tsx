@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useUser } from '../context/UserContext';
 import { CreatePoll } from '../components/teacher/CreatePoll';
-import { LiveResults } from '../components/teacher/LiveResults';
+import { PollHistory } from '../components/teacher/PollHistory';
 import { toast } from 'react-hot-toast';
 
 export const TeacherDashboard = () => {
   const { user } = useUser();
   const [activePoll, setActivePoll] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [view, setView] = useState<'live' | 'history'>('live');
 
   const fetchActivePoll = async () => {
       try {
@@ -30,21 +31,46 @@ export const TeacherDashboard = () => {
 
   const handlePollCreated = (poll: any) => {
       setActivePoll(poll);
+      setView('live');
   };
 
   if (loading) return <div className="text-center p-10">Loading...</div>;
 
   return (
     <div className="w-full max-w-2xl bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-       <div className="mb-8 border-b border-gray-100 pb-4">
-          <h1 className="text-2xl font-bold text-[#373737]">{activePoll ? 'Live Poll' : 'Teacher Dashboard'}</h1>
-          <p className="text-[#6E6E6E]">{activePoll ? 'Monitor student responses in real-time' : 'Create a new poll to get started'}</p>
+       <div className="mb-6 flex justify-between items-center border-b border-gray-100 pb-4">
+          <div>
+            <h1 className="text-2xl font-bold text-[#373737]">{view === 'live' ? (activePoll ? 'Live Poll' : 'Teacher Dashboard') : 'Poll History'}</h1>
+            <p className="text-[#6E6E6E]">
+                {view === 'live' 
+                    ? (activePoll ? 'Monitor student responses' : 'Create a new poll') 
+                    : 'View past poll results'}
+            </p>
+          </div>
+          <div className="flex bg-[#F2F2F2] rounded-lg p-1">
+              <button 
+                onClick={() => setView('live')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${view === 'live' ? 'bg-white shadow text-[#7765DA]' : 'text-[#6E6E6E] hover:text-[#373737]'}`}
+              >
+                  Live
+              </button>
+              <button 
+                onClick={() => setView('history')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${view === 'history' ? 'bg-white shadow text-[#7765DA]' : 'text-[#6E6E6E] hover:text-[#373737]'}`}
+              >
+                  History
+              </button>
+          </div>
        </div>
 
-       {activePoll ? (
-         <LiveResults poll={activePoll} />
+       {view === 'live' ? (
+           activePoll ? (
+             <LiveResults poll={activePoll} />
+           ) : (
+             <CreatePoll onPollCreated={handlePollCreated} />
+           )
        ) : (
-         <CreatePoll onPollCreated={handlePollCreated} />
+           <PollHistory />
        )}
     </div>
   );
