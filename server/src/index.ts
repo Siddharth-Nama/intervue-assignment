@@ -4,12 +4,19 @@ import dotenv from 'dotenv';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import connectDB from './config/db';
+import pollRoutes from './routes/pollRoutes';
 
 dotenv.config();
 
 connectDB();
 
 const app = express();
+// ... (socket setup) ...
+
+app.use(cors());
+app.use(express.json());
+
+app.use('/api/polls', pollRoutes);
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
