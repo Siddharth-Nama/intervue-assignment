@@ -3,8 +3,11 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import connectDB from './config/db';
 
 dotenv.config();
+
+connectDB();
 
 const app = express();
 const httpServer = createServer(app);
