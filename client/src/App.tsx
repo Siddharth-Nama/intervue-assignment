@@ -8,8 +8,7 @@ import { StudentOnboarding } from './pages/StudentOnboarding';
 
 import { TeacherDashboard } from './pages/TeacherDashboard';
 
-// Placeholders for routes
-const StudentDashboard = () => <div>Student Poll View</div>;
+import { StudentDashboard } from './pages/StudentDashboard';
 
 function App() {
   return (
