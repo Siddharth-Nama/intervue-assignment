@@ -6,10 +6,10 @@ export const registerPollHandlers = (io: Server, socket: Socket) => {
     console.log(`User joined: ${socket.id}`, payload);
   };
 
-  const onVote = async (payload: { pollId: string, optionIndex: number }) => {
+  const onVote = async (payload: { pollId: string, optionIndex: number, userId: string }) => {
     try {
-      const { pollId, optionIndex } = payload;
-      const updatedPoll = await PollService.vote(pollId, optionIndex);
+      const { pollId, optionIndex, userId } = payload;
+      const updatedPoll = await PollService.vote(pollId, optionIndex, userId);
       if (updatedPoll) {
         io.emit('poll:updated', updatedPoll);
       }

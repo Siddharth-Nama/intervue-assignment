@@ -14,10 +14,18 @@ class PollService {
     return await Poll.findOne({ isActive: true }).sort({ createdAt: -1 });
   }
 
-  async vote(pollId: string, optionIndex: number): Promise<IPoll | null> {
-    // Atomic update to ensure race condition handling
-    const update = { $inc: { [`options.${optionIndex}.votes`]: 1 } };
-    return await Poll.findByIdAndUpdate(pollId, update, { new: true });
+  async vote(pollId: string, optionIndex: number, userId: string): Promise<IPoll | null> {
+    // Atomic update: only update if userId is NOT in votedUsers
+    const update = { 
+      $inc: { [`options.${optionIndex}.votes`]: 1 },
+      $addToSet: { votedUsers: userId }
+    };
+    // findOneAndUpdate with condition { _id: pollId, votedUsers: { $ne: userId } }
+    return await Poll.findOneAndUpdate(
+      { _id: pollId, votedUsers: { $ne: userId } },
+      update,
+      { new: true }
+    );
   }
 }
 

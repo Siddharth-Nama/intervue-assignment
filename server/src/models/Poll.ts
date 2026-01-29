@@ -11,6 +11,7 @@ export interface IPoll extends Document {
   duration: number; // in seconds
   isActive: boolean;
   startTime?: Date;
+  votedUsers: string[]; // Track who voted
   createdAt: Date;
 }
 
@@ -23,6 +24,7 @@ const PollSchema: Schema = new Schema({
   duration: { type: Number, required: true },
   isActive: { type: Boolean, default: true },
   startTime: { type: Date },
+  votedUsers: [{ type: String }],
   createdAt: { type: Date, default: Date.now }
 });
 
