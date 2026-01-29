@@ -34,8 +34,14 @@ app.get('/', (req, res) => {
   res.send('Live Polling System API');
 });
 
+import { registerPollHandlers } from './socket/pollHandler';
+
+// ...
+
 io.on('connection', (socket) => {
   console.log('New client connected:', socket.id);
+  
+  registerPollHandlers(io, socket);
 
   socket.on('disconnect', () => {
     console.log('Client disconnected:', socket.id);
