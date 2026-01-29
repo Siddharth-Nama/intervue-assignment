@@ -7,10 +7,11 @@ interface ActivePollProps {
   onVote: (optionIndex: number) => void;
   isVoting: boolean;
   hasVoted: boolean;
+  serverTime?: string | Date;
 }
 
-export const ActivePoll = ({ poll, onVote, isVoting, hasVoted }: ActivePollProps) => {
-  const timeLeft = usePollTimer(poll.startTime, poll.duration);
+export const ActivePoll = ({ poll, onVote, isVoting, hasVoted, serverTime }: ActivePollProps) => {
+  const timeLeft = usePollTimer(poll.startTime, poll.duration, serverTime);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
 
   const handleSubmit = () => {

@@ -124,6 +124,7 @@ export const StudentDashboard = () => {
             onVote={handleVote} 
             isVoting={isVoting} 
             hasVoted={hasVoted}
+            serverTime={poll.serverTime}
         />
     </div>
   );

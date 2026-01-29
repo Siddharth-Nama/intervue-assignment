@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const usePollTimer = (startTime: string | Date, duration: number) => {
+export const usePollTimer = (startTime: string | Date, duration: number, serverTime?: string | Date) => {
   const [timeLeft, setTimeLeft] = useState(duration);
 
   useEffect(() => {
@@ -8,9 +8,15 @@ export const usePollTimer = (startTime: string | Date, duration: number) => {
 
     const start = new Date(startTime).getTime();
     const end = start + duration * 1000;
+    
+    // Calculate offset if serverTime is provided
+    let offset = 0;
+    if (serverTime) {
+      offset = new Date(serverTime).getTime() - Date.now();
+    }
 
     const calculateTime = () => {
-      const now = Date.now(); // Ideally synced with server time offset
+      const now = Date.now() + offset; // Adjusted current time
       const remaining = Math.ceil((end - now) / 1000);
       return Math.max(0, remaining);
     };
