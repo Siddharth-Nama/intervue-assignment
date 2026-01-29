@@ -1,24 +1,29 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { UserProvider } from './context/UserContext';
 import { Layout } from './components/Layout';
-import { Landing } from './pages/Landing'; // Placeholder import, will create next
-import { Toaster } from 'react-hot-toast'; // Need to install this later or use simple one
+import { Landing } from './pages/Landing';
+import { Toaster } from 'react-hot-toast';
 
-// Temporary placeholder for routing
-function AppContent() {
-  return <Landing />; 
-}
+// Placeholders for routes
+const TeacherDashboard = () => <div>Teacher Dashboard</div>;
+const StudentOnboarding = () => <div>Student Onboarding</div>;
+const StudentDashboard = () => <div>Student Poll View</div>;
 
 function App() {
   return (
     <UserProvider>
+      <BrowserRouter>
         <Layout>
-           {/* Router will go here */}
-           <div className="text-center">
-              <h1 className="text-3xl font-bold mb-4">Intervue Poll</h1>
-              <p>Select Role to continue (Placeholder)</p>
-           </div>
+           <Routes>
+             <Route path="/" element={<Landing />} />
+             <Route path="/teacher" element={<TeacherDashboard />} />
+             <Route path="/student/onboarding" element={<StudentOnboarding />} />
+             <Route path="/student/poll" element={<StudentDashboard />} />
+             <Route path="*" element={<Navigate to="/" replace />} />
+           </Routes>
         </Layout>
-        <Toaster />
+        <Toaster position="top-right" />
+      </BrowserRouter>
     </UserProvider>
   );
 }
