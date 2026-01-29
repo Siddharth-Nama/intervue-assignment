@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useUser } from '../context/UserContext';
 import { CreatePoll } from '../components/teacher/CreatePoll';
 import { PollHistory } from '../components/teacher/PollHistory';
+import { LiveResults } from '../components/teacher/LiveResults';
 import { toast } from 'react-hot-toast';
 
 export const TeacherDashboard = () => {
