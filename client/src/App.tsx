@@ -4,9 +4,10 @@ import { Layout } from './components/Layout';
 import { Landing } from './pages/Landing';
 import { Toaster } from 'react-hot-toast';
 
+import { StudentOnboarding } from './pages/StudentOnboarding';
+
 // Placeholders for routes
 const TeacherDashboard = () => <div>Teacher Dashboard</div>;
-const StudentOnboarding = () => <div>Student Onboarding</div>;
 const StudentDashboard = () => <div>Student Poll View</div>;
 
 function App() {
