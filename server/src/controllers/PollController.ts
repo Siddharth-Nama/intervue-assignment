@@ -39,6 +39,15 @@ class PollController {
           res.status(500).json({ message: 'Error fetching poll' });
       }
   }
+
+  async getPollHistory(req: Request, res: Response): Promise<void> {
+      try {
+          const polls = await PollService.getPollsHistory();
+          res.json(polls);
+      } catch (error) {
+          res.status(500).json({ message: 'Error fetching history', error });
+      }
+  }
 }
 
 export default new PollController();

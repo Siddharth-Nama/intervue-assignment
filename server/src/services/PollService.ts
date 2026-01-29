@@ -27,6 +27,10 @@ class PollService {
       { new: true }
     );
   }
+
+  async getPollsHistory(): Promise<IPoll[]> {
+    return await Poll.find({ isActive: false }).sort({ createdAt: -1 });
+  }
 }
 
 export default new PollService();

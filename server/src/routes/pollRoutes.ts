@@ -5,5 +5,6 @@ const router = Router();
 
 router.post('/', PollController.createPoll);
 router.get('/active', PollController.getActivePoll);
+router.get('/history', PollController.getPollHistory);
 
 export default router;
