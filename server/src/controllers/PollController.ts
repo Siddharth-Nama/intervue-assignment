@@ -27,7 +27,11 @@ class PollController {
   async getActivePoll(req: Request, res: Response): Promise<void> {
       try {
           const poll = await PollService.getLastActivePoll();
-          res.json(poll);
+          if (!poll) {
+             res.json(null);
+             return;
+          }
+          res.json({ ...poll.toObject(), serverTime: new Date() });
       } catch (error) {
           res.status(500).json({ message: 'Error fetching poll' });
       }
