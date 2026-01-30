@@ -8,7 +8,7 @@ export const PollHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/polls/history');
+        const res = await fetch('http://localhost:5001/api/polls/history');
         if (res.ok) {
           const data = await res.json();
           setHistory(data);

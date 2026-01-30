@@ -13,7 +13,7 @@ export const TeacherDashboard = () => {
 
   const fetchActivePoll = async () => {
       try {
-          const res = await fetch('http://localhost:5000/api/polls/active');
+          const res = await fetch('http://localhost:5001/api/polls/active');
           if (res.ok) {
               const data = await res.json();
               setActivePoll(data);
