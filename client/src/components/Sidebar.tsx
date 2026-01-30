@@ -13,7 +13,7 @@ export const Sidebar = () => {
   ];
 
   return (
-    <div className="w-80 bg-white border-l border-gray-200 h-full flex flex-col shadow-sm">
+    <div className="w-full lg:w-80 bg-white border-l border-gray-200 h-64 lg:h-full flex flex-col shadow-sm order-2 lg:order-none">
         <div className="flex border-b border-gray-200">
              <button 
                 onClick={() => setActiveTab('chat')}

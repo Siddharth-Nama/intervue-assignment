@@ -10,7 +10,19 @@ class PollService {
     return await Poll.findById(id);
   }
 
+  async checkActivePollExpiration(): Promise<void> {
+      const poll = await Poll.findOne({ isActive: true }).sort({ createdAt: -1 });
+      if (poll && poll.startTime) {
+          const endTime = new Date(poll.startTime).getTime() + poll.duration * 1000;
+          if (Date.now() > endTime) {
+              poll.isActive = false;
+              await poll.save();
+          }
+      }
+  }
+
   async getLastActivePoll(): Promise<IPoll | null> {
+    await this.checkActivePollExpiration();
     return await Poll.findOne({ isActive: true }).sort({ createdAt: -1 });
   }
 
@@ -29,6 +41,7 @@ class PollService {
   }
 
   async getPollsHistory(): Promise<IPoll[]> {
+    await this.checkActivePollExpiration();
     return await Poll.find({ isActive: false }).sort({ createdAt: -1 });
   }
 }

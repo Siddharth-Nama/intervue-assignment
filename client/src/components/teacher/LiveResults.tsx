@@ -36,9 +36,9 @@ export const LiveResults = ({ poll: initialPoll, onAskNew }: LiveResultsProps) =
   // Ideally usePollTimer here too.
 
   return (
-    <div className='flex h-[90vh] w-full bg-white'>
+    <div className='flex flex-col lg:flex-row h-auto lg:h-[90vh] w-full bg-white'>
         {/* Main Content */}
-        <div className="flex-1 flex flex-col p-8 overflow-y-auto">
+        <div className="flex-1 flex flex-col p-4 lg:p-8 overflow-y-auto order-1 lg:order-none">
              <div className="flex justify-between items-center mb-8">
                   <div className="flex items-center gap-4">
                       <h2 className="font-bold text-[#1A1A1A]">Question 1</h2>
