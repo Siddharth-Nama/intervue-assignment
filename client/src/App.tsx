@@ -9,6 +9,8 @@ import { StudentOnboarding } from './pages/StudentOnboarding';
 import { TeacherDashboard } from './pages/TeacherDashboard';
 
 import { StudentDashboard } from './pages/StudentDashboard';
+import { KickedOut } from './pages/KickedOut';
+
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
              <Route path="/teacher" element={<TeacherDashboard />} />
              <Route path="/student/onboarding" element={<StudentOnboarding />} />
              <Route path="/student/poll" element={<StudentDashboard />} />
+             <Route path="/kicked-out" element={<KickedOut />} />
+
              <Route path="*" element={<Navigate to="/" replace />} />
            </Routes>
         </Layout>
