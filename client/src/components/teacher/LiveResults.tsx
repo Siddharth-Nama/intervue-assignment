@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSocket } from '../../hooks/useSocket';
 import { Sidebar } from '../Sidebar';
-import { Button } from '../ui/Button'; // Assuming we use this for 'Ask a new question'
 
 interface LiveResultsProps {
   poll: any;
