@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { API_BASE_URL } from '../../config';
+
 import { toast } from 'react-hot-toast';
 
 export const PollHistory = () => {
@@ -8,7 +10,10 @@ export const PollHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/polls/history`);
+
+
+// ... inside component ...
+        const res = await fetch(`${API_BASE_URL}/api/polls/history`);
         if (res.ok) {
           const data = await res.json();
           setHistory(data);

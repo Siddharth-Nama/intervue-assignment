@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
+
 import { useUser } from '../context/UserContext';
 import { useSocket } from '../hooks/useSocket';
 import { WaitingScreen } from '../components/student/WaitingScreen';
@@ -18,7 +20,10 @@ export const StudentDashboard = () => {
   useEffect(() => {
     const fetchPoll = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/polls/active`);
+
+
+// ... inside component ...
+        const res = await fetch(`${API_BASE_URL}/api/polls/active`);
         if (res.ok) {
            const data = await res.json();
            if (data) {

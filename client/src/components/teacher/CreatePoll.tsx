@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { API_BASE_URL } from '../../config';
+
 import { Button } from '../ui/Button';
 import { toast } from 'react-hot-toast';
 
@@ -56,7 +58,10 @@ export const CreatePoll = ({ onPollCreated }: CreatePollProps) => {
     
     setIsSubmitting(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/polls`, {
+
+
+// ... inside component ...
+      const response = await fetch(`${API_BASE_URL}/api/polls`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

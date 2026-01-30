@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
+
 
 import { CreatePoll } from '../components/teacher/CreatePoll';
 import { PollHistory } from '../components/teacher/PollHistory';
@@ -12,7 +14,10 @@ export const TeacherDashboard = () => {
 
   const fetchActivePoll = async () => {
       try {
-          const res = await fetch(`${import.meta.env.VITE_API_URL}/api/polls/active`);
+
+
+// ... inside component ...
+          const res = await fetch(`${API_BASE_URL}/api/polls/active`);
           if (res.ok) {
               const data = await res.json();
               setActivePoll(data);
