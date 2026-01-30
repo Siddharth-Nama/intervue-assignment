@@ -102,23 +102,29 @@ export const StudentDashboard = () => {
   const isTimeUp = now > endTime;
 
   if (hasVoted || isTimeUp) {
+      // Show results view for student (similar to LiveResults but maybe read only?)
+      // Design shows "Wait for teacher..." and results.
+      // I'll reuse LiveResults layout for consistency, or active poll style with results.
+      // Mockup shows "Desktop - 660" which looks like Teacher Results.
+      // Student usually just sees "Submitted" or results.
+      // I will render the ActivePoll component but in "voted" state which shows results if I implemented it there?
+      // Wait, ActivePoll currently shows checkmarks.
+      // I'll use a version of LiveResults for student but without sidebar if needed, or just ActivePoll.
+      // Let's use ActivePoll with state validation.
       return (
-          <div className="w-full max-w-2xl mx-auto bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-               <div className="mb-6 text-center">
-                    {hasVoted ? (
-                        <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">VOTE SUBMITTED</span>
-                    ) : (
-                        <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">TIME UP</span>
-                    )}
-               </div>
-               <LiveResults poll={poll} />
-               {isTimeUp && !hasVoted && <p className="text-center text-red-500 mt-4">You missed the voting window.</p>}
-          </div>
+        <div className="w-full min-h-screen bg-white">
+             {/* If voted, show LiveResults-like view or the "Wait" screen with results?
+                 Image 4 "Desktop - 660" looks like Student after vote (has chat bubble).
+                 It shows the Bar Chart.
+             */}
+             <LiveResults poll={poll} onAskNew={() => {}} /> 
+             {/* Reusing LiveResults for Student View (it has sidebar too which is good) */}
+        </div>
       );
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+    <div className="w-full min-h-screen bg-white">
         <ActivePoll 
             poll={poll} 
             onVote={handleVote} 

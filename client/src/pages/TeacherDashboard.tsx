@@ -38,40 +38,34 @@ export const TeacherDashboard = () => {
   if (loading) return <div className="text-center p-10">Loading...</div>;
 
   return (
-    <div className="w-full max-w-2xl bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-       <div className="mb-6 flex justify-between items-center border-b border-gray-100 pb-4">
-          <div>
-            <h1 className="text-2xl font-bold text-[#373737]">{view === 'live' ? (activePoll ? 'Live Poll' : 'Teacher Dashboard') : 'Poll History'}</h1>
-            <p className="text-[#6E6E6E]">
-                {view === 'live' 
-                    ? (activePoll ? 'Monitor student responses' : 'Create a new poll') 
-                    : 'View past poll results'}
-            </p>
-          </div>
-          <div className="flex bg-[#F2F2F2] rounded-lg p-1">
-              <button 
-                onClick={() => setView('live')}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${view === 'live' ? 'bg-white shadow text-[#7765DA]' : 'text-[#6E6E6E] hover:text-[#373737]'}`}
-              >
-                  Live
-              </button>
-              <button 
-                onClick={() => setView('history')}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${view === 'history' ? 'bg-white shadow text-[#7765DA]' : 'text-[#6E6E6E] hover:text-[#373737]'}`}
-              >
-                  History
-              </button>
-          </div>
-       </div>
-
+    <div className="w-full bg-[#FAFAFA] min-h-screen">
+      {/* Header for Dashboard/History toggles only if not in Live Poll? 
+          Actually design shows separate pages.
+          If Active Poll, full screen.
+          If Create Poll, full screen (centered).
+          I will keep the navigation simple.
+      */}
+      
        {view === 'live' ? (
            activePoll ? (
-             <LiveResults poll={activePoll} />
+             <LiveResults poll={activePoll} onAskNew={() => { setActivePoll(null); /* Logic to stop poll optional */ }} />
            ) : (
              <CreatePoll onPollCreated={handlePollCreated} />
            )
        ) : (
            <PollHistory />
+       )}
+
+       {/* Floating Toggle for View - Temporary to verify history */}
+       {!activePoll && (
+           <div className="fixed bottom-8 left-8 z-50">
+              <button 
+                  onClick={() => setView(view === 'live' ? 'history' : 'live')}
+                  className="bg-white border border-gray-200 shadow-lg px-4 py-2 rounded-full text-sm font-bold text-[#7765DA]"
+              >
+                  {view === 'live' ? 'View History' : 'Back to Dashboard'}
+              </button>
+           </div>
        )}
     </div>
   );
